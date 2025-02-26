@@ -6,20 +6,15 @@
  * @format
  */
 
-import {RichText, useEditorBridge} from '@10play/tentap-editor';
 import React from 'react';
 import {View} from 'react-native';
+import WebView from 'react-native-webview';
 
 function App(): React.JSX.Element {
   return <Basic />;
 }
 
 export const Basic = () => {
-  const editor = useEditorBridge({
-    autofocus: false,
-    avoidIosKeyboard: false,
-    initialContent: 'Start editing!',
-  });
   return (
     <View style={{flex: 1, backgroundColor: 'black'}}>
       <View style={{backgroundColor: 'red', flex: 1}} />
@@ -30,7 +25,11 @@ export const Basic = () => {
           paddingHorizontal: 10,
           paddingBottom: 15,
         }}>
-        <RichText editor={editor} />
+        <WebView
+          source={{
+            html: `<html><body><input placeholder="sdfsdfd" style="width:200px;height:40px;" /></body></html>`,
+          }}
+        />
       </View>
     </View>
   );
