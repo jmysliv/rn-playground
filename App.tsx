@@ -7,32 +7,37 @@
  */
 
 import React from 'react';
-import {View} from 'react-native';
-import WebView from 'react-native-webview';
+import {Text, TouchableOpacity, View} from 'react-native';
+import LegendListScreen from './ListScreen';
+import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {createNativeStackNavigator} from '@react-navigation/native-stack';
 
-function App(): React.JSX.Element {
-  return <Basic />;
+const Stack = createNativeStackNavigator();
+
+function RootStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen name="Home" component={Home} />
+      <Stack.Screen name="List" component={LegendListScreen} />
+    </Stack.Navigator>
+  );
 }
 
-export const Basic = () => {
+export default function App() {
   return (
-    <View style={{flex: 1, backgroundColor: 'black'}}>
-      <View style={{backgroundColor: 'red', flex: 1}} />
-      <View
-        style={{
-          paddingTop: 10,
-          height: 100,
-          paddingHorizontal: 10,
-          paddingBottom: 15,
-        }}>
-        <WebView
-          source={{
-            html: `<html><body><input placeholder="sdfsdfd" style="width:200px;height:40px;" /></body></html>`,
-          }}
-        />
-      </View>
+    <NavigationContainer>
+      <RootStack />
+    </NavigationContainer>
+  );
+}
+
+const Home = () => {
+  const navigation = useNavigation();
+  return (
+    <View style={{flex: 1}}>
+      <TouchableOpacity onPress={() => navigation.navigate('List')}>
+        <Text>Go to list</Text>
+      </TouchableOpacity>
     </View>
   );
 };
-
-export default App;
