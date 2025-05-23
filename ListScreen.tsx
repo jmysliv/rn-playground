@@ -80,8 +80,9 @@ const LegendItem = ({item, isLast}: {item: Item; isLast: boolean}) => {
 
 const PAGE_SIZE = 20;
 
-const LegendListScreen = () => {
-  const [items, setItems] = useState(generateItems(PAGE_SIZE * 2));
+const LegendListScreen = ({route}) => {
+  const paginationEnabled = route.params.pagination;
+  const [items, setItems] = useState(generateItems(5));
   const [loading, setLoading] = useState(false);
   const [forwardLoading, setForwardLoading] = useState(false);
 
@@ -90,6 +91,9 @@ const LegendListScreen = () => {
   );
 
   const onStartReached = useCallback(() => {
+    if (!paginationEnabled) {
+      return;
+    }
     setLoading(true);
     setTimeout(() => {
       setItems(prev => [
@@ -98,9 +102,12 @@ const LegendListScreen = () => {
       ]);
       setLoading(false);
     }, 1000);
-  }, []);
+  }, [paginationEnabled]);
 
   const onEndReached = useCallback(() => {
+    if (!paginationEnabled) {
+      return;
+    }
     setForwardLoading(true);
     setTimeout(() => {
       setItems(prev => [
@@ -109,7 +116,7 @@ const LegendListScreen = () => {
       ]);
       setForwardLoading(false);
     }, 1000);
-  }, []);
+  }, [paginationEnabled]);
 
   return (
     <View style={styles.container}>
@@ -132,16 +139,14 @@ const LegendListScreen = () => {
       <Pressable
         style={styles.button}
         onPress={() => {
-          setTimeout(() => {
-            setItems(prev => [
-              ...prev,
-              {
-                id: uuid.v4(),
-                index: prev[prev.length - 1].index + 1,
-                content: generateRandomText(1, 2),
-              },
-            ]);
-          }, 1000);
+          setItems(prev => [
+            ...prev,
+            {
+              id: uuid.v4(),
+              index: prev[prev.length - 1].index + 1,
+              content: generateRandomText(1, 2),
+            },
+          ]);
         }}>
         <Text>Add item</Text>
       </Pressable>
@@ -157,7 +162,6 @@ const styles = StyleSheet.create({
   },
   list: {
     flex: 1,
-    paddingTop: 20,
   },
   button: {
     height: 50,

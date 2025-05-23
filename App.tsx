@@ -6,8 +6,15 @@
  * @format
  */
 
-import React from 'react';
-import {Text, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {
+  Button,
+  StyleSheet,
+  Switch,
+  Text,
+  TouchableOpacity,
+  View,
+} from 'react-native';
 import LegendListScreen from './ListScreen';
 import {NavigationContainer, useNavigation} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
@@ -33,11 +40,37 @@ export default function App() {
 
 const Home = () => {
   const navigation = useNavigation();
+  const [enablePagination, setEnablePagination] = useState(false);
   return (
-    <View style={{flex: 1}}>
-      <TouchableOpacity onPress={() => navigation.navigate('List')}>
-        <Text>Go to list</Text>
-      </TouchableOpacity>
+    <View style={styles.container}>
+      <View style={styles.settings}>
+        <Text>Enable Pagination:</Text>
+        <Switch
+          value={enablePagination}
+          onChange={event => setEnablePagination(event.nativeEvent.value)}
+        />
+      </View>
+      <Button
+        onPress={() =>
+          navigation.navigate('List', {pagination: enablePagination})
+        }
+        title="Go to list"
+      />
     </View>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    alignItems: 'center',
+  },
+  settings: {
+    width: '100%',
+    marginVertical: 16,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+});
