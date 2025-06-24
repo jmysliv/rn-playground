@@ -1586,7 +1586,7 @@ PODS:
     - React-logger (= 0.77.1)
     - React-perflogger (= 0.77.1)
     - React-utils (= 0.77.1)
-  - RNFlashList (2.0.0-alpha.11):
+  - RNFlashList (2.0.0-rc.9):
     - DoubleConversion
     - glog
     - hermes-engine
@@ -1944,7 +1944,7 @@ SPEC CHECKSUMS:
   ReactAppDependencyProvider: e7e92253013754a8c35ebdbf8ad700f4e8956f62
   ReactCodegen: 8c6710db5ccee603fa0475978465b606abe1ed77
   ReactCommon: 8da6c58517fa560d0fc7a9da83093457303ae9f8
-  RNFlashList: 5cc42a101b1bb7a49b4f6e473ede5f8169a9ce33
+  RNFlashList: ad8947d4259d541e5291465306bf6bd8547b9895
   RNScreens: 0f01bbed9bd8045a8d58e4b46993c28c7f498f3c
   SocketRocket: d4aabe649be1e368d1318fdf28a022d714d65748
   Yoga: 2957d0e744897870b5a377f26522e3f08cadd7ac
